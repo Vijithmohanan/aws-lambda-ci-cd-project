@@ -12,11 +12,9 @@ pipeline {
         stage('Terraform Init and Plan') {
             steps {
                 dir('terraform') { 
-                    // Change directory to where your .tf files are located
-                    sh 'terraform init'
-                    // COMMENT: terraform init prepares the workspace and downloads plugins.
-                    sh 'terraform plan -out=tfplan'
-                    // COMMENT: terraform plan checks the infrastructure definition and saves the execution plan.
+                    // Use the full, absolute path found in step 1
+                    sh '/opt/homebrew/bin/terraform init' 
+                    sh '/opt/homebrew/bin/terraform plan -out=tfplan'
                 }
             }
         }
@@ -24,8 +22,8 @@ pipeline {
         stage('Terraform Apply') {
             steps {
                 dir('terraform') {
-                    sh 'terraform apply -auto-approve tfplan'
-                    // COMMENT: terraform apply executes the plan, creating/updating the AWS resources (Lambda).
+                    // Use the full, absolute path here too
+                    sh '/opt/homebrew/bin/terraform apply -auto-approve tfplan'
                 }
             }
         }
