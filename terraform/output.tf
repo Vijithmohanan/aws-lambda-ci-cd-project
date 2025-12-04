@@ -17,3 +17,7 @@ output "iam_role_name" {
   value       = aws_iam_role.lambda_exec_role.name
   # COMMENT: Useful for checking permissions or logs in the AWS Console.
 }
+
+output "api_gateway_endpoint" {
+  value = aws_apigatewayv2_api.http_api.api_endpoint
+}
